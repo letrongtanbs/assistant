@@ -1,9 +1,13 @@
-import pyttsx3
-import speech_recognition
+import pyttsx3, re
+import speech_recognition, webbrowser
 from datetime import date, datetime
 
 bot_ear = speech_recognition.Recognizer()
 bot = pyttsx3.init()
+url = 'https://www.google.com/search?q='
+
+def searchU(keyWord):
+    webbrowser.open(url+keyWord)
 
 while True:
 	with speech_recognition.Microphone() as mic:
@@ -19,7 +23,7 @@ while True:
 
 	print("You: " + you)
 	bot_brain = you
-
+ 
 	if you == "":
 		bot_brain = "I can't hear you, try again"
 	elif "hello" in you:
@@ -30,12 +34,15 @@ while True:
 	elif "time" in you:
 		now = datetime.now()
 		bot_brain = now.strftime("%H hours %M minutes %S seconds")
+	elif "search" in you:
+		print("Looking for "+ you)
+		searchU(re.sub("^search", "", you).strip())
 	elif "bye" in you:
 		bot_brain = "Bye Tom!"
 		print(bot_brain)
 		bot.say(bot_brain)
 		bot.runAndWait()
-		break;
+		break
 	else:
 		bot_brain = "I'm fine thank you and you"
 

@@ -1,13 +1,14 @@
 import speech_recognition
 
 bot_ear = speech_recognition.Recognizer()
-with speech_recognition.Microphone() as mic:
-	print("Bot: I'm listening")
-	audio = bot_ear.listen(mic)
+def listenU():
+	with speech_recognition.Microphone() as mic:
+		print("Bot: I'm listening")
+		audio = bot_ear.listen(mic)
+	try:
+		you = bot_ear.recognize_google(audio)
+	except:
+		you = "Can' recognize!"
 
-try:
-	you = bot_ear.recognize_google(audio)
-except:
-	you = "Can' recognize!"
-
-print("You: " + you)
+	print("You: " + you)
+	return str(you)

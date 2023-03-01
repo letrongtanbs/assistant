@@ -1,2 +1,2 @@
 # assistant
-stupid assistant
+My stupid assistant
